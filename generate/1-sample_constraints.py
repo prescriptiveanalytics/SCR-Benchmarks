@@ -16,6 +16,7 @@ import SCRBenchmark.Constants.StringKeys as sk
 from SCRBenchmark import create_dataset_from_sampling_objectives, get_constraint_descriptor
 from SCRBenchmark import Benchmark
 
+# CONSTRAINT_SAMPLING_SIZE = 10_000_000
 CONSTRAINT_SAMPLING_SIZE = 100_000
 
 # This code determines the constraints for each equation. To this end, a large
@@ -197,12 +198,7 @@ for equation_dictionary_entry in srsdf.AllEquations:
     constraints_textual.append(str({sk.EQUATION_EQUATION_NAME_KEY: bench.equation.get_eq_name(),
                                     sk.EQUATION_CONSTRAINTS_CONSTRAINTS_KEY: constraints}).replace('\'', '\"'))
 
-with open("SCRBenchmark/Data/feynman_srsdf_constraint_info.json", "w") as text_file:
-    text_file.write('SRSD_EQUATION_CONSTRAINTS = [')
-    text_file.write(',\n'.join(constraints_textual))
-    text_file.write(']')
-
-with open("SCRBenchmark/Data/feynman_srsdf_constraint_info.py", "w") as text_file:
-    text_file.write('SRSD_EQUATION_CONSTRAINTS = [')
+with open("generate/feynman_srsdf_constraint_info.json", "w") as text_file:
+    text_file.write('[')
     text_file.write(',\n'.join(constraints_textual))
     text_file.write(']')

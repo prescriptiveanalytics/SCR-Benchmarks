@@ -13,6 +13,15 @@ import numpy as np
 
 from .registry import get_sampling_obj, register_sampling_class, register_sampling_func
 
+def get_sampling_value_range(sampl_def):
+    if sampl_def.uses_positive and sampl_def.uses_negative:
+        return (-sampl_def.max_value, sampl_def.max_value)
+    elif sampl_def.uses_positive:
+        return (sampl_def.min_value, sampl_def.max_value)
+    elif sampl_def.uses_negative:
+        return (-sampl_def.max_value, -sampl_def.min_value)
+    raise AttributeError(f'Either self.uses_positive ({sampl_def.uses_positive}) or '
+                          f'self.uses_negative({sampl_def.uses_negative}) must be True')
 
 @register_sampling_func
 def default_sampling(sample_size, min_value=1.0e-1, max_value=1.0e1):
@@ -122,14 +131,7 @@ class DefaultSampling(object):
                              f'self.uses_negative({self.uses_negative}) must be True')
     
     def get_value_range(self):
-        if self.uses_positive and self.uses_negative:
-            return (-self.max_value, self.max_value)
-        elif self.uses_positive:
-            return (self.min_value, self.max_value)
-        elif self.uses_negative:
-            return (-self.max_value, -self.min_value)
-        raise AttributeError(f'Either self.uses_positive ({self.uses_positive}) or '
-                             f'self.uses_negative({self.uses_negative}) must be True')
+        return get_sampling_value_range(self)
     
     def to_uniform_sampling(self):
         return SimpleSampling(self.min_value,self.max_value,self.uses_positive,self.uses_negative)
@@ -156,14 +158,7 @@ class SimpleSampling(object):
                              f'self.uses_negative({self.uses_negative}) must be True')
 
     def get_value_range(self):
-        if self.uses_positive and self.uses_negative:
-            return (-self.max_value, self.max_value)
-        elif self.uses_positive:
-            return (self.min_value, self.max_value)
-        elif self.uses_negative:
-            return (-self.max_value, -self.min_value)
-        raise AttributeError(f'Either self.uses_positive ({self.uses_positive}) or '
-                             f'self.uses_negative({self.uses_negative}) must be True')
+        return get_sampling_value_range(self)
     
     def to_uniform_sampling(self):
         return self
@@ -188,14 +183,7 @@ class IntegerSampling(object):
                              f'self.uses_negative({self.uses_negative}) must be True')
 
     def get_value_range(self):
-        if self.uses_positive and self.uses_negative:
-            return (-self.max_value, self.max_value)
-        elif self.uses_positive:
-            return (self.min_value, self.max_value)
-        elif self.uses_negative:
-            return (-self.max_value, -self.min_value)
-        raise AttributeError(f'Either self.uses_positive ({self.uses_positive}) or '
-                             f'self.uses_negative({self.uses_negative}) must be True')
+        return get_sampling_value_range(self)
 
     def to_uniform_sampling(self):
         return self

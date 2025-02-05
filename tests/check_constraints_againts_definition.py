@@ -6,8 +6,20 @@ import SCRBenchmark.SRSDFeynman as srsdf
 from SCRBenchmark import Benchmark
 
 
-for benchmark_name in srsdf.AllEquations:
-      benchmark = Benchmark(benchmark_name)
-      (valid, violated) = benchmark.check_constraints(benchmark.eq)
+for equation_name in srsdf.AllEquations:
+      print(equation_name)
+      benchmark = Benchmark(srsdf.AllEquations[equation_name])
+      (valid, violated) = benchmark.check_constraints(benchmark.equation.get_eq_raw(),Library="SymPy",use_display_names = True)
+      if(not valid):
+        print(violated)
+      assert valid
+
+
+for equation_name in srsdf.AllEquations:
+      print(equation_name)
+      benchmark = Benchmark(srsdf.AllEquations[equation_name])
+      (valid, violated) = benchmark.check_constraints(benchmark.equation.get_eq_raw(),Library="JAX", use_display_names = True)
+      if(not valid):
+        print(violated)
       assert valid
 

@@ -93,21 +93,20 @@ class Benchmark(object):
       # will use display names if specified
       expr = sympy.parse_expr(f, evaluate=False, local_dict= local_dict)
 
+      # function itself to calculate image
+      f = [(expr, "", 0)] 
+
       #calculate all first order partial derivatives of the expression 
-      f_primes = [(sympy.Derivative(expr, var).doit(),var.name, 1) 
+      f_primes = [(sympy.Derivative(expr, var, 1).doit(),var.name, 1) 
                  for var
                  in local_dict.values()]
       
-      #calculate all second order partial derivatives of the expression (every possible combination [Hessian])
-      f_prime_mat = [[ (sympy.Derivative(f_prime, var).doit(), [prime_var_name,var.name], 2 ) 
-                        for var
-                        in local_dict.values()] 
-                     for (f_prime, prime_var_name, _) 
-                     in f_primes]
+      #calculate second order partial derivatives over same variable
+      f_seconds = [(sympy.Derivative(expr, var, 2).doit(),var.name, 2) 
+                 for var
+                 in local_dict.values()]
       
-      #flatten 2d Hessian to 1d list and combine them 
-      f_prime_mat_flattened = [item for sublist in f_prime_mat for item in sublist]
-      derviatives = f_primes+f_prime_mat_flattened
+      derviatives = f + f_primes + f_seconds
       
       
       violated_constraints = []
@@ -116,11 +115,18 @@ class Benchmark(object):
         #every constraint has a specific input range in which they apply
         xs = self.datasets[constraint[sk.EQUATION_CONSTRAINTS_ID_KEY]]
 
-        #the current constraint to be checked matches only one of derivatives (all possible combinations are derived)
+        #the current constraint to be checked matches only one of derivatives
+        #(all possible combinations are derived)
+        dict_key= "unknown"
         if(use_display_names):
-          matches = [ derivative for (derivative, var, _) in derviatives if var == constraint[sk.EQUATION_CONSTRAINTS_VAR_DISPLAY_NAME_KEY]]
+          dict_key = sk.EQUATION_CONSTRAINTS_VAR_DISPLAY_NAME_KEY
         else:
-          matches = [ derivative for (derivative, var, _) in derviatives if var == constraint[sk.EQUATION_CONSTRAINTS_VAR_NAME_KEY]]
+          dict_key = sk.EQUATION_CONSTRAINTS_VAR_NAME_KEY
+        
+        matches = [ derivative 
+                    for (derivative, var, order) in derviatives 
+                    if ((var == constraint[dict_key])
+                        and (order == constraint[sk.EQUATION_CONSTRAINTS_ORDER_DERIVATIVE_KEY]))]
 
         if(len(matches)>1):
            raise "derivatives are not names uniquely"
@@ -132,6 +138,10 @@ class Benchmark(object):
         descriptor = base.get_constraint_descriptor(derivative, local_dict.keys(), xs)
         if(descriptor != constraint[sk.EQUATION_CONSTRAINTS_DESCRIPTOR_KEY]):
             violated_constraints.append(constraint)
+
+        #REMOVE to step into
+        descriptor = base.get_constraint_descriptor(derivative, local_dict.keys(), xs)
+
 
       return (len(violated_constraints) == 0, violated_constraints)
     
