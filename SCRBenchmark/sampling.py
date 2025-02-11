@@ -210,10 +210,10 @@ def to_string(SamplingObj):
 
 def to_latex_string(SamplingObj):
     if SamplingObj.uses_positive and SamplingObj.uses_negative:
-        return f"\mathbb{{R}}^{{\leq {-SamplingObj.min_value}}}_{{\geq {-SamplingObj.max_value}}} \cup \mathbb{{R}}^{{\leq {SamplingObj.max_value}}}_{{\geq {SamplingObj.min_value}}}"
+        return f"\\mathbb{{R}}^{{\\leq {-SamplingObj.min_value}}}_{{\\geq {-SamplingObj.max_value}}} \\cup \\mathbb{{R}}^{{\\leq {SamplingObj.max_value}}}_{{\\geq {SamplingObj.min_value}}}"
     elif SamplingObj.uses_positive:
-        return f"\mathbb{{R}}^{{\leq {SamplingObj.max_value}}}_{{\geq {SamplingObj.min_value}}}"
+        return f"\\mathbb{{R}}^{{\\leq {SamplingObj.max_value}}}_{{\\geq {SamplingObj.min_value}}}"
     elif SamplingObj.uses_negative:
-        return f"\mathbb{{R}}^{{\leq {-SamplingObj.min_value}}}_{{\geq {-SamplingObj.max_value}}}"
+        return f"\\mathbb{{R}}^{{\\leq {-SamplingObj.min_value}}}_{{\\geq {-SamplingObj.max_value}}}"
     raise AttributeError(f'Either SamplingObj.uses_positive ({SamplingObj.uses_positive}) or '
                           f'SamplingObj.uses_negative({SamplingObj.uses_negative}) must be True')
