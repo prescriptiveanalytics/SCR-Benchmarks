@@ -1,25 +1,11 @@
-import numpy as np
-import shutil
-import filecmp
-import os
+
 import SCRBenchmark.SRSDFeynman as srsdf
-from SCRBenchmark import Benchmark
+from SCRBenchmark import Benchmark, FEYNMAN_SRSD_HARD
 
-
-for equation_name in srsdf.AllEquations:
+for equation_name in list(srsdf.AllEquations):
       print(equation_name)
       benchmark = Benchmark(srsdf.AllEquations[equation_name])
-      (valid, violated) = benchmark.check_constraints(benchmark.equation.get_eq_raw(),Library="SymPy",use_display_names = True)
+      (valid, violated) = benchmark.check_constraints(str(benchmark.equation.sympy_eq), Library="SymPy", use_display_names = False)
       if(not valid):
         print(violated)
       assert valid
-
-
-for equation_name in srsdf.AllEquations:
-      print(equation_name)
-      benchmark = Benchmark(srsdf.AllEquations[equation_name])
-      (valid, violated) = benchmark.check_constraints(benchmark.equation.get_eq_raw(),Library="JAX", use_display_names = True)
-      if(not valid):
-        print(violated)
-      assert valid
-

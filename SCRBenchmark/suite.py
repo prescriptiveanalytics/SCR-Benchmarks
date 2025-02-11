@@ -7,7 +7,7 @@ from .seeds import SEEDS
 
 SAMPLING_PATIENCE = 10
 HARD_SAMPLE_SIZES = [100,1000]
-HARD_NOISE_LEVELS = [0,0.05,0.1,0.15,0.2]
+HARD_NOISE_LEVELS = [0,0.05,0.2]
 
 FEYNMAN_SRSD_HARD = [
 'FeynmanICh6Eq20a'
@@ -23,7 +23,7 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanICh37Eq4'
 ,'FeynmanICh39Eq22'
 ,'FeynmanICh40Eq1'
-,'FeynmanICh41Eq16'
+# ,'FeynmanICh41Eq16' # no suitable constraints
 ,'FeynmanICh44Eq4' 
 ,'FeynmanICh50Eq26'
 ,'FeynmanIICh6Eq15a'
@@ -34,7 +34,7 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanIICh11Eq28'
 ,'FeynmanIICh13Eq23'
 ,'FeynmanIICh13Eq34'
-,'FeynmanIICh24Eq17'
+# ,'FeynmanIICh24Eq17' # no suitable constraints
 ,'FeynmanIICh35Eq18'
 ,'FeynmanIICh35Eq21'
 ,'FeynmanIICh36Eq38'
@@ -42,13 +42,13 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanIIICh9Eq52'
 ,'FeynmanIIICh10Eq19'
 ,'FeynmanIIICh21Eq20'
-,'FeynmanBonus1'
+# ,'FeynmanBonus1' # no suitable constraints
 ,'FeynmanBonus2'
 ,'FeynmanBonus3'
-,'FeynmanBonus4'
+# ,'FeynmanBonus4' # no suitable constraints
 ,'FeynmanBonus5'
 ,'FeynmanBonus6'
-,'FeynmanBonus7'
+# ,'FeynmanBonus7' # no suitable constraints
 ,'FeynmanBonus9'
 ,'FeynmanBonus10'
 ,'FeynmanBonus11'

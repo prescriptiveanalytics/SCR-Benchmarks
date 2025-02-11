@@ -1,5 +1,6 @@
 import SCRBenchmark.base as base
 import sympy
+import jax.numpy as jaxnp
 import numpy as np
 import pandas as pd
 import warnings
@@ -7,7 +8,7 @@ import os
 import jax
 import SCRBenchmark.Constants.StringKeys as sk
 from SCRBenchmark.Data.feynman_srsdf_constraint_info import SRSD_EQUATION_CONSTRAINTS as SRSDFConstraints
-CONSTRAINT_SAMPLING_SIZE = 100_000
+CONSTRAINT_SAMPLING_SIZE = 100_000 
 
 class Benchmark(object):
     _eq_name = None
@@ -48,8 +49,8 @@ class Benchmark(object):
         xs = self.equation.create_dataset(sample_size,patience)
 
         if(noise_level>0):
-          std_dev = np.std(xs[:,-1])
-          xs[:,-1] = xs[:,-1] + np.random.normal(0,std_dev*np.sqrt(noise_level),len(xs))
+          std_dev = jaxnp.std(xs[:,-1])
+          xs[:,-1] = xs[:,-1] + np.random.normal(0,std_dev*jaxnp.sqrt(noise_level),len(xs))
 
         return (xs, self.read_test_dataframe().to_numpy())
     
@@ -66,15 +67,7 @@ class Benchmark(object):
       if(self.equation.get_eq_source() == sk.SRSDF_SOURCE_QUALIFIER):
           return next(x[sk.EQUATION_CONSTRAINTS_CONSTRAINTS_KEY] for x in SRSDFConstraints if x[sk.EQUATION_EQUATION_NAME_KEY] == self.equation.get_eq_name())
           
-    def check_constraints (self, f, Library = "SymPy", use_display_names = False):
-      if(Library == "SymPy"):
-        return self.check_constraints_SymPy (f, use_display_names)
-      elif(Library == "JAX"):
-        return self.check_constraints_JAX (f, use_display_names)
-      else:
-        raise RuntimeError(f"Specified library '{Library}' is not supported.")
-       
-    def check_constraints_SymPy (self, f, use_display_names = False):
+    def check_constraints (self, f, Library = "SymPy", use_display_names = False, use_parameter_unpacking = False):
       constraints = self.get_constraints()
 
       constraints = [c for c in constraints if c[sk.EQUATION_CONSTRAINTS_DESCRIPTOR_KEY]!=sk.EQUATION_CONSTRAINTS_DESCRIPTOR_NO_CONSTRAINT]
@@ -83,6 +76,15 @@ class Benchmark(object):
       
       if(self.datasets is None):
           self.read_datasets_for_constraint_checking()
+
+      if(Library == "SymPy"):
+        return self.check_constraints_SymPy (f,constraints, use_display_names, use_parameter_unpacking)
+      elif(Library == "JAX"):
+        return self.check_constraints_JAX (f,constraints, use_display_names, use_parameter_unpacking)
+      else:
+        raise RuntimeError(f"Specified library '{Library}' is not supported.")
+       
+    def check_constraints_SymPy (self, f,constraints, use_display_names = False, use_parameter_unpacking = False):
 
       # replace the sympy local dictionary with the display names of variables if specified
       local_dict = self.equation.get_sympy_eq_local_dict()
@@ -135,29 +137,25 @@ class Benchmark(object):
         derivative = matches[0]
 
         #does the calculated (sampled) gradient for the current derivative match the constraint description
-        descriptor = base.get_constraint_descriptor(derivative, local_dict.keys(), xs)
+        f = sympy.lambdify(local_dict.keys(), derivative, modules='numpy')
+        # # #calculate gradient per data point
+        # # gradients = jaxnp.array([ f(*row) for row in xs ])
+        # speedup of 5:
+        f_v = np.vectorize(f)
+        gradients = f_v(*(np.array(xs).T))
+        descriptor = base.get_constraint_descriptor_for_gradients(gradients)
+
         if(descriptor != constraint[sk.EQUATION_CONSTRAINTS_DESCRIPTOR_KEY]):
             violated_constraints.append(constraint)
-
-        #REMOVE to step into
-        descriptor = base.get_constraint_descriptor(derivative, local_dict.keys(), xs)
 
 
       return (len(violated_constraints) == 0, violated_constraints)
     
-    def check_constraints_JAX (self, f, use_display_names = False):
-      constraints = self.get_constraints()
-
-      constraints = [c for c in constraints if c[sk.EQUATION_CONSTRAINTS_DESCRIPTOR_KEY]!=sk.EQUATION_CONSTRAINTS_DESCRIPTOR_NO_CONSTRAINT]
-      if(len(constraints) == 0):
-          return (True, []) #no constraints to check
-      
-      if(self.datasets is None):
-          self.read_datasets_for_constraint_checking()
-
+    def check_constraints_JAX (self, f,constraints, use_display_names = False, use_parameter_unpacking = False):
       # replace the sympy local dictionary with the display names of variables if specified
       var_names = [v.name for v in self.equation.get_vars()]
 
+      f_jit = jax.jit(f)
       g = jax.jit(jax.grad(f))
       hessian = jax.jit(jax.hessian(f))
       
@@ -171,19 +169,28 @@ class Benchmark(object):
         descriptor = sk.EQUATION_CONSTRAINTS_DESCRIPTOR_UNKOWN_CONSTRAINT
 
         # checking the different types of constraints supported
-        if(constraint[sk.EQUATION_CONSTRAINTS_ORDER_DERIVATIVE_KEY] == 1):
+        if(constraint[sk.EQUATION_CONSTRAINTS_ORDER_DERIVATIVE_KEY] == 0):
+
+          y = jax.vmap(f_jit)(xs) 
+          descriptor = base.get_constraint_descriptor_for_gradients(y)
+
+        # checking the different types of constraints supported
+        elif(constraint[sk.EQUATION_CONSTRAINTS_ORDER_DERIVATIVE_KEY] == 1):
           #constraint is defined for the first order derivative
           # the signs of the functions gradient are to be checked for the input domain
           var_index = var_names.index(var_name_constraint)
-          gradients = y = jax.vmap(g)(xs) 
+
+          gradients = jax.vmap(g)(xs) 
           var_gradients = gradients[:,var_index]
           descriptor = base.get_constraint_descriptor_for_gradients(var_gradients)
 
         elif(constraint[sk.EQUATION_CONSTRAINTS_ORDER_DERIVATIVE_KEY] == 2):
-          var1_index = var_names.index(var_name_constraint[0])
-          var2_index = var_names.index(var_name_constraint[1])
+          var1_index = var_names.index(var_name_constraint)
+          var2_index = var_names.index(var_name_constraint)
+
           hessian_gradients = jax.vmap(hessian)(xs) 
           var_gradients = hessian_gradients[:,var1_index,var2_index]
+
           descriptor = base.get_constraint_descriptor_for_gradients(var_gradients)
 
         else:
