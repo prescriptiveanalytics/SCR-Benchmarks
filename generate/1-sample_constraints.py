@@ -102,6 +102,7 @@ for equation_dictionary_entry in srsdf.AllEquations:
 
     # generate large set of data for the full input space
     variable_display_names = bench.equation.get_var_names()
+    variable_names = [str(var) for var in bench.equation.x]
     data = pd.DataFrame(create_dataset_from_sampling_objectives(
                             # replace the actual standard sampling targets with their respective uniform variant
                             [samp.to_uniform_sampling() for samp in bench.equation.sampling_objs], 
@@ -130,7 +131,7 @@ for equation_dictionary_entry in srsdf.AllEquations:
 
     constraints = []
 
-    vars = [(x, y.get_value_range()) for (x, y) in zip(variable_display_names, bench.equation.sampling_objs)]
+    vars = [(x, y.get_value_range()) for (x, y) in zip(variable_names, bench.equation.sampling_objs)]
     ranges = {i: (x[1][0], x[1][1]) for i, x in enumerate(vars)}
 
     for derivative, variable, variable_name, degree in f_all:
