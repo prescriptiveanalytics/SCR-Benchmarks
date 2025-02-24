@@ -18977,51 +18977,51 @@ SRSD_EQUATION_CONSTRAINTS = [
         ],
         "id": 9
       },
-      {
-        "var_name": "x0",
-        "var_display_name": "epsilon",
-        "order_derivative": 2,
-        "descriptor": "positive",
-        "derivative": "2*x1*x2**2*(-2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4*(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1)) + 1)/(x3*x4**2*x5**2*x6**4*sqrt(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1))",
-        "sample_space": [
-          {
-            "name": "x0",
-            "low": -1e-16,
-            "high": 1e-16
-          },
-          {
-            "name": "x1",
-            "low": 1e-18,
-            "high": 1e-16
-          },
-          {
-            "name": "x2",
-            "low": 1e-10,
-            "high": 1e-08
-          },
-          {
-            "name": "x3",
-            "low": 1e-30,
-            "high": 1e-28
-          },
-          {
-            "name": "x4",
-            "low": 1.0,
-            "high": 10.0
-          },
-          {
-            "name": "x5",
-            "low": 1.0,
-            "high": 10.0
-          },
-          {
-            "name": "x6",
-            "low": -1e-09,
-            "high": 1e-09
-          }
-        ],
-        "id": 10
-      },
+      # {
+      #   "var_name": "x0",
+      #   "var_display_name": "epsilon",
+      #   "order_derivative": 2,
+      #   "descriptor": "positive",
+      #   "derivative": "2*x1*x2**2*(-2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4*(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1)) + 1)/(x3*x4**2*x5**2*x6**4*sqrt(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1))",
+      #   "sample_space": [
+      #     {
+      #       "name": "x0",
+      #       "low": -1e-16,
+      #       "high": 1e-16
+      #     },
+      #     {
+      #       "name": "x1",
+      #       "low": 1e-18,
+      #       "high": 1e-16
+      #     },
+      #     {
+      #       "name": "x2",
+      #       "low": 1e-10,
+      #       "high": 1e-08
+      #     },
+      #     {
+      #       "name": "x3",
+      #       "low": 1e-30,
+      #       "high": 1e-28
+      #     },
+      #     {
+      #       "name": "x4",
+      #       "low": 1.0,
+      #       "high": 10.0
+      #     },
+      #     {
+      #       "name": "x5",
+      #       "low": 1.0,
+      #       "high": 10.0
+      #     },
+      #     {
+      #       "name": "x6",
+      #       "low": -1e-09,
+      #       "high": 1e-09
+      #     }
+      #   ],
+      #   "id": 10
+      # },
       {
         "var_name": "x1",
         "var_display_name": "E_n",
@@ -19067,51 +19067,51 @@ SRSD_EQUATION_CONSTRAINTS = [
         ],
         "id": 11
       },
-      {
-        "var_name": "x2",
-        "var_display_name": "L",
-        "order_derivative": 2,
-        "descriptor": "positive",
-        "derivative": "2*x0**2*x1*(-2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4*(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1)) + 1)/(x3*x4**2*x5**2*x6**4*sqrt(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1))",
-        "sample_space": [
-          {
-            "name": "x0",
-            "low": -1e-16,
-            "high": 1e-16
-          },
-          {
-            "name": "x1",
-            "low": 1e-18,
-            "high": 1e-16
-          },
-          {
-            "name": "x2",
-            "low": 1e-10,
-            "high": 1e-08
-          },
-          {
-            "name": "x3",
-            "low": 1e-30,
-            "high": 1e-28
-          },
-          {
-            "name": "x4",
-            "low": 1.0,
-            "high": 10.0
-          },
-          {
-            "name": "x5",
-            "low": 1.0,
-            "high": 10.0
-          },
-          {
-            "name": "x6",
-            "low": -1e-09,
-            "high": 1e-09
-          }
-        ],
-        "id": 12
-      },
+      # {
+      #   "var_name": "x2",
+      #   "var_display_name": "L",
+      #   "order_derivative": 2,
+      #   "descriptor": "positive",
+      #   "derivative": "2*x0**2*x1*(-2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4*(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1)) + 1)/(x3*x4**2*x5**2*x6**4*sqrt(2*x0**2*x1*x2**2/(x3*x4**2*x5**2*x6**4) + 1))",
+      #   "sample_space": [
+      #     {
+      #       "name": "x0",
+      #       "low": -1e-16,
+      #       "high": 1e-16
+      #     },
+      #     {
+      #       "name": "x1",
+      #       "low": 1e-18,
+      #       "high": 1e-16
+      #     },
+      #     {
+      #       "name": "x2",
+      #       "low": 1e-10,
+      #       "high": 1e-08
+      #     },
+      #     {
+      #       "name": "x3",
+      #       "low": 1e-30,
+      #       "high": 1e-28
+      #     },
+      #     {
+      #       "name": "x4",
+      #       "low": 1.0,
+      #       "high": 10.0
+      #     },
+      #     {
+      #       "name": "x5",
+      #       "low": 1.0,
+      #       "high": 10.0
+      #     },
+      #     {
+      #       "name": "x6",
+      #       "low": -1e-09,
+      #       "high": 1e-09
+      #     }
+      #   ],
+      #   "id": 12
+      # },
       {
         "var_name": "x3",
         "var_display_name": "m",
@@ -22041,36 +22041,36 @@ SRSD_EQUATION_CONSTRAINTS = [
         ],
         "id": 6
       },
-      {
-        "var_name": "x2",
-        "var_display_name": "H_G",
-        "order_derivative": 2,
-        "descriptor": "negative",
-        "derivative": "1872855580.36049*(3.59502071494727e+17*x3 - 1.79751035747364e+17)/pi",
-        "sample_space": [
-          {
-            "name": "x0",
-            "low": -1000.0,
-            "high": 1000.0
-          },
-          {
-            "name": "x1",
-            "low": 100000000.0,
-            "high": 10000000000.0
-          },
-          {
-            "name": "x2",
-            "low": -100.0,
-            "high": 100.0
-          },
-          {
-            "name": "x3",
-            "low": -10.0,
-            "high": 0.5000261962413788
-          }
-        ],
-        "id": 7
-      },
+      # {
+      #   "var_name": "x2",
+      #   "var_display_name": "H_G",
+      #   "order_derivative": 2,
+      #   "descriptor": "negative",
+      #   "derivative": "1872855580.36049*(3.59502071494727e+17*x3 - 1.79751035747364e+17)/pi",
+      #   "sample_space": [
+      #     {
+      #       "name": "x0",
+      #       "low": -1000.0,
+      #       "high": 1000.0
+      #     },
+      #     {
+      #       "name": "x1",
+      #       "low": 100000000.0,
+      #       "high": 10000000000.0
+      #     },
+      #     {
+      #       "name": "x2",
+      #       "low": -100.0,
+      #       "high": 100.0
+      #     },
+      #     {
+      #       "name": "x3",
+      #       "low": -10.0,
+      #       "high": 0.5000261962413788
+      #     }
+      #   ],
+      #   "id": 7
+      # },
       {
         "var_name": "x2",
         "var_display_name": "H_G",
