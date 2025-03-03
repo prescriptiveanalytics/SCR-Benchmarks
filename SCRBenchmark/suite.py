@@ -33,9 +33,9 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanIICh11Eq27'
 ,'FeynmanIICh11Eq28'
 ,'FeynmanIICh13Eq23'
-,'FeynmanIICh13Eq34'
+,'FeynmanIICh13Eq34' # only inf. values for target in training regions
 # ,'FeynmanIICh24Eq17' # no suitable constraints
-,'FeynmanIICh35Eq18'
+,'FeynmanIICh35Eq18' # only inf. values for target in training regions
 ,'FeynmanIICh35Eq21'
 ,'FeynmanIICh36Eq38'
 ,'FeynmanIIICh4Eq33'
@@ -43,7 +43,7 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanIIICh10Eq19'
 ,'FeynmanIIICh21Eq20'
 # ,'FeynmanBonus1' # no suitable constraints
-# ,'FeynmanBonus2' # only inf. values for target in training regions
+,'FeynmanBonus2' # only inf. values for target in training regions
 ,'FeynmanBonus3'
 # ,'FeynmanBonus4' # no suitable constraints
 ,'FeynmanBonus5'
@@ -58,7 +58,7 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanBonus15'
 ,'FeynmanBonus16'
 ,'FeynmanBonus17'
-# ,'FeynmanBonus19' # only inf. values for target in training regions
+,'FeynmanBonus19' # only inf. values for target in training regions
 ,'FeynmanBonus20'
 ]
 

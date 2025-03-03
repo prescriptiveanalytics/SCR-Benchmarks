@@ -49,8 +49,8 @@ class Benchmark(object):
         xs = self.equation.create_dataset(sample_size,patience)
 
         if(noise_level>0):
-          std_dev = jaxnp.std(xs[:,-1])
-          xs[:,-1] = xs[:,-1] + np.random.normal(0,std_dev*jaxnp.sqrt(noise_level),len(xs))
+          std_dev = np.std(xs[:,-1])
+          xs[:,-1] = xs[:,-1] + np.random.normal(0,std_dev*np.sqrt(noise_level),len(xs))
 
         return (xs, self.read_test_dataframe().to_numpy())
     
