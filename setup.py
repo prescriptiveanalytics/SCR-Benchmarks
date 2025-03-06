@@ -6,7 +6,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "SCRBenchmark"
-VERSION = "0.6.1"
+VERSION = "0.6.3"
 # To install the library, run the following
 #
 # python setup.py install
@@ -28,7 +28,7 @@ setup(
     author="Florian Bachinger",
     author_email="florian.bachinger@fh-hagenberg.at",
     url="",
-    keywords=["Benchmark","Shape Constrained Regression", "Symbolic Regression", "SymReg"],
+    keywords=["Benchmark","Shape Constrained Regression"],
     python_requires=">=3.6",
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests","example","examples","generate",]),

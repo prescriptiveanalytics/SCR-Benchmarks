@@ -6,7 +6,7 @@ import SCRBenchmark.Constants.StringKeys as sk
 from .seeds import SEEDS
 
 SAMPLING_PATIENCE = 10
-HARD_SAMPLE_SIZES = [100,1000]
+HARD_SAMPLE_SIZES = [1000,10_000]
 HARD_NOISE_LEVELS = [0,0.05,0.2]
 
 FEYNMAN_SRSD_HARD = [
@@ -33,9 +33,9 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanIICh11Eq27'
 ,'FeynmanIICh11Eq28'
 ,'FeynmanIICh13Eq23'
-,'FeynmanIICh13Eq34' # only inf. values for target in training regions
+,'FeynmanIICh13Eq34' 
 # ,'FeynmanIICh24Eq17' # no suitable constraints
-,'FeynmanIICh35Eq18' # only inf. values for target in training regions
+,'FeynmanIICh35Eq18' 
 ,'FeynmanIICh35Eq21'
 ,'FeynmanIICh36Eq38'
 ,'FeynmanIIICh4Eq33'
@@ -43,7 +43,7 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanIIICh10Eq19'
 ,'FeynmanIIICh21Eq20'
 # ,'FeynmanBonus1' # no suitable constraints
-,'FeynmanBonus2' # only inf. values for target in training regions
+,'FeynmanBonus2' 
 ,'FeynmanBonus3'
 # ,'FeynmanBonus4' # no suitable constraints
 ,'FeynmanBonus5'
@@ -58,7 +58,7 @@ FEYNMAN_SRSD_HARD = [
 ,'FeynmanBonus15'
 ,'FeynmanBonus16'
 ,'FeynmanBonus17'
-,'FeynmanBonus19' # only inf. values for target in training regions
+,'FeynmanBonus19'
 ,'FeynmanBonus20'
 ]
 
