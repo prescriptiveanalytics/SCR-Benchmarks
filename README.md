@@ -15,9 +15,9 @@ See our `examples` folder for **more code snippets and usage examples**. There w
 **Installation**
 
 ```sh
-pip install git+https://github.com/florianBachinger/SCR-Benchmarks.git
+pip install git+https://github.com/prescriptiveanalytics/SCR-Benchmarks.git
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/florianBachinger/SCR-Benchmarks.git`)
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/prescriptiveanalytics/SCR-Benchmarks`)
 
 Then import the package:
 ```python
@@ -78,8 +78,8 @@ The following methods are currently benchmarked on the data:
 
 | Approach | Description | Reference | Links |
 |----------|-------------|-----------|-------|
-|SCPR | shape-constrained polynomial regression creating a single global polynomial model | SCRBenchmark: A Benchmarking library for Shape-constrained Regression (Bachinger et al. 2025) | [code](https://github.com/florianBachinger/SCR-Benchmark-SCPR), [paper](TBD) |
-| SCSR | shape-constrained symbolic regression single objective | SCRBenchmark: A Benchmarking library for Shape-constrained Regression (Bachinger et al. 2025) | [code](TBD), [paper](TBD) |
+|SCPR | shape-constrained polynomial regression creating a single global polynomial model | SCRBenchmark: A Benchmarking library for Shape-constrained Regression (Bachinger et al. 2025) | [code](https://github.com/prescriptiveanalytics/SCR-Benchmark-SCPR), [paper](https://dl.acm.org/doi/abs/10.1145/3712255.3734280) |
+| SCSR | shape-constrained symbolic regression single objective | SCRBenchmark: A Benchmarking library for Shape-constrained Regression (Bachinger et al. 2025) | [code](https://github.com/prescriptiveanalytics/SCR-Benchmark-SCSR), [paper](https://dl.acm.org/doi/abs/10.1145/3712255.3734280) |
 
 *We will report all results using benchmark set. Please send a pull request
 containing your execution results and a link to your result repository for the
@@ -89,7 +89,22 @@ table below.*
 Cite this work:
 
 ```bibtex
-will be added in future
+@inproceedings{10.1145/3712255.3734280,
+author = {Bachinger, Florian and Werth, Bernhard and Zenisek, Jan and Haider, Christian and Olivetti de Fran\c{c}a, Fabr\'{\i}cio},
+title = {SCRBenchmark: A Benchmarking Library for Shape-Constrained Regression},
+year = {2025},
+isbn = {9798400714641},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3712255.3734280},
+doi = {10.1145/3712255.3734280},
+booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference Companion},
+pages = {2505–2513},
+numpages = {9},
+keywords = {shape constraints, symbolic regression, benchmark suite},
+location = {NH Malaga Hotel, Malaga, Spain},
+series = {GECCO '25 Companion}
+}
 ```
 
 ## Credit
